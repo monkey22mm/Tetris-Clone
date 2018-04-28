@@ -1,0 +1,54 @@
+<!--
+Title: Javascript Perlin Noise Implementation Island Simulation
+Author: Liam Speakman
+Notes: N/A
+Copyright (C) 2017 Liam Speakman <lspeakman001@gmail.com>
+You are free to copy, redistribute, and modify this work with no permission from the author 
+-->
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Game</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body oncontextmenu="return false">
+	<div style="width:1280px; height:720px; margin: 0 auto; padding: 5px;"> 
+	<canvas id="canvas" width="1280" height="720"></canvas>
+		<script src="utils.js"></script>
+		<script src="keycode.js"></script>
+		<script src="Block.js"></script>
+		<script src="Game.js"></script>
+		<script>
+		window.onload = function(){
+			var canvas = document.getElementById('canvas'),
+				context = canvas.getContext('2d');			
+				context.imageSmoothingEnabled= false;
+				context.mozImageSmoothingEnabled = false;
+			
+				window.addEventListener('keydown', onKeyboardDown, false);			
+				window.addEventListener('keyup', onKeyboardUp, false);	
+				window.addEventListener('mousedown', mouseDownEvent, false);
+				window.addEventListener('mouseup', mouseUpEvent, false);
+				window.addEventListener('wheel', onWheelEvent, false);
+				mouse = utils.captureMouse(canvas);
+				//initialize game
+				init();
+				//update method 30 ticks per sec 1000/30
+				setInterval(function() {update();}, 1000/30);
+				//render game
+			(function drawFrame(){
+				window.requestAnimationFrame(drawFrame,canvas);
+				context.clearRect(0,0,canvas.width,canvas.height);
+				render(context);
+			}());
+				
+			};
+		</script>
+		<h2>Controls:</h2>
+		<p>A and D to move tetromino left and right</p>
+		<p>S to speed up falling</p>
+		<p>Q and E to rotate a tetromino</p>
+		<p>The music is Tetris Theme by DJ AG</p>
+		<a href='https://soundcloud.com/djag-4/tetris-theme-dj-ag-remix'>click here to play his track.</a>
+	</body>
